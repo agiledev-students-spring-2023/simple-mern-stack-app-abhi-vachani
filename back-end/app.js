@@ -21,6 +21,33 @@ mongoose
 // load the dataabase models we want to deal with
 const { Message } = require('./models/Message')
 const { User } = require('./models/User')
+const { AboutUs } = require('./models/AboutUs')
+
+// import pic from './pic_of_me.png'
+
+//src={pic} = "pic"
+// a route to handle fetching all about us data
+app.get('/about', async (req, res) => {
+  // load all aboutInfo from database
+  try {
+    const about = {
+      about: "Hello, my name is Abhi Vachani and I'm a third-year student studying Computer Science. I love playing and watching soccer too!",
+      picture: "pic"
+    }
+    res.json({
+      about: about,
+      picture: picture,
+      status: 'all good',
+
+    })
+  } catch (err) {
+    console.error(err)
+    res.status(400).json({
+      error: err,
+      status: 'failed to retrieve about info from the database',
+    })
+  }
+})
 
 // a route to handle fetching all messages
 app.get('/messages', async (req, res) => {
@@ -39,6 +66,8 @@ app.get('/messages', async (req, res) => {
     })
   }
 })
+
+
 
 // a route to handle fetching a single message by its id
 app.get('/messages/:messageId', async (req, res) => {
